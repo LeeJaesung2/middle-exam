@@ -28,7 +28,7 @@ int is_full(StackType *s){
 //push 함수
 void push(StackType *s, int data){
     if(is_full(s)){
-        printf("stack is full");
+        printf("stack is full\n");
         return;
     }
     else s->array[++(s->top)] = data;
@@ -37,7 +37,7 @@ void push(StackType *s, int data){
 //pop함수
 int pop(StackType *s){
     if(is_empty(s)){
-        printf("stack is empty");
+        printf("stack is empty\n");
         return 0;
     }
     else return s->array[(s->top)--];
@@ -54,10 +54,11 @@ int peek(StackType *s){
 
 int main()
 {
-    int letter_count = 1; //초기값을 1로 초기화
+    int letter_count = 1; //count 변수
     int num = 0;
     char top;
-    char result[50];
+    char *ch;
+    char result[100]; //결과를 담을 배열
     char line[100]; //문자열을 담을 배열
 //  define a stack
     StackType s;
@@ -66,33 +67,44 @@ int main()
 //  initialize the stack
     printf("Input string to compress: ");
     scanf("%s", line);
+
+    // convert to lower case
     for (int i = 0; line[i]; i++) {
-        line[i] = tolower(line[i]);     // convert to lower case
+        line[i] = tolower(line[i]);
         push(&s, line[i]); //한글자씩 푸쉬하여 넣음
-    }
+    }//for문
 
     top = pop(&s);
-    for (int i = 0; i < strlen(line); i++) {
+    for (int i = 0; i<strlen(line) ; i++) {
         // compress the string here
-
-
         if(top ==peek(&s)){
             pop(&s);
             letter_count += 1;
-        }
+        }//if문
         else{
-            result[num] = top;
-            result[num+1] = letter_count;
-            num+=2;
+            result[num++] = top;
+            sprintf(ch, "%d", letter_count);
+            result[num++] = *ch;
             letter_count = 1;
             top = pop(&s);
-        }
+        }//else문
 
+        if((s.top)==-1){
+            break;
+        }//if문
+
+    }//for문
+    result[num++] =top;
+    sprintf(ch, "%d", letter_count);
+    result[num] = *ch;
+
+    printf("encoding string : ");
+
+    while(num!=-1){
+        printf("%c",result[num--]);
+    }
+    printf("\ndecoding string : %s", line);
     
-    }
-    for(int i = strlen(result); i>=0; i--){
-        printf("%c",result[num]);
-    }
 
     return 0;
 } 
