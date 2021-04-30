@@ -16,7 +16,7 @@ struct _Stack *CreateStack() { //strcut 오타 수정
 	struct _Stack *S =(struct _Stack*)malloc(sizeof(struct _Stack));  //malloc의 타입 추가
 	S->capacity = MAXSIZE; //MAX_SIZE를 MAXSIZE로 수정
 	S->top = -1; //top을 -1로 수정
-	S->array =malloc(S->capacity + sizeof(int)); 
+	S->array =malloc(S->capacity * sizeof(int)); //int사이즈를 곱함 
 	return S; //포인터를 삭제하여 리턴타입에 맞춤
 }
 
