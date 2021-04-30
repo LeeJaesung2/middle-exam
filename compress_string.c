@@ -1,3 +1,5 @@
+// 이재성
+// 2018011889
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
