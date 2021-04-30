@@ -27,7 +27,7 @@ void in2postEval(char *exp, char *exp2){
         switch(ch){
             case '+': case '-': case '*': case '/':{
                 while(!empty(s)&&(prec(ch))<=(prec(peek(s)))){ //스택이 비어있지 않고 이전 연산자보다 우선순위가 낮은 경우
-                    //printf("%c", peek(s)); //pop하여 출력
+                    printf("%c", peek(s)); //pop하여 출력
                     exp2[num++] = pop(s);
                 }//while문
                 push(s,ch); //연산자 push
@@ -40,21 +40,21 @@ void in2postEval(char *exp, char *exp2){
             case ')':{ //닫는괄호를 받은 경우
                 top_op = pop(s); //top에 하나 저장
                 while(top_op != '('){ //top이 여는 괄호를 만날때까지 반복
-                    //printf("%c", top_op); //top 출력
+                    printf("%c", top_op); //top 출력
                     exp2[num++] = top_op;
                     top_op = pop(s); //top에 다시 pop
                 }//while문
                 break;
             }//case
             default: { //숫자인 경우
-                //printf("%c", ch); //하나 출력
+                printf("%c", ch); //하나 출력
                 exp2[num++] = ch;
                 break;
             }//default
         }//switch문
     }//for문
     while(!empty(s)){
-        //printf("%c",peek(s));
+        printf("%c",peek(s));
         exp2[num++] = pop(s);
     }
 }
@@ -128,10 +128,12 @@ int eval(char* exp){
 int main(void)
 {
     char exp[] = "(5+4/2)*((9*7)/(8/2+3))-2";
+    printf("infix : %s\n", exp);
     char exp2[100];
+    printf("postfix : ");
     in2postEval(exp, exp2);
     
     int result = eval(exp2);
-    printf("postfix evaluation: %d\n", result);
+    printf("\npostfix evaluation: %d\n", result);
     return 0;
 }

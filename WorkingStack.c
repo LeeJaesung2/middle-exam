@@ -62,7 +62,7 @@ int main(void) {
 	struct _Stack *s = CreateStack(); //CreateStack의 리턴값을 저장할 변수를 만듦
 	for (int i = 0; i < MAXSIZE; i++) {
 		PushStack(s, i*10);
-		Top(s); //인자를 넣어줌
+		printf("%d\n", Top(s)); //Top에 이자를 넣고 출력해줌
 	}
 
 	DeleteStack(s); //인자를 넣어줌

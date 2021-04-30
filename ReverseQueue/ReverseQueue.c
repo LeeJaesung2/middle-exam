@@ -17,19 +17,22 @@ queue* ReverseQueue(queue *q){
         EnCQ(q, pop(s));
     }
     DeleteStack(s);
+    printf("\n");
     return q;
 }
 
 int main(void)
 {
     queue *Q = CreateCQueue();
+    printf("Nomal Queue\n");
     for (int i = 0; i < 10; i++) {
         EnCQ(Q, i*10);
     }
+    printf("\n");
     Q = ReverseQueue(Q);
+    printf("\nReverse Queue\n");
     for (int i = 0; i <10; i++) 
         DeCQ(Q);
-    
     DelCQ(Q);
     return 0;
 }
