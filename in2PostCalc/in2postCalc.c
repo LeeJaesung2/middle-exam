@@ -64,7 +64,7 @@ typedef enum {lparen, rparen,
               times, divide,
               mod, eos, operand
               } precedence;
-
+//문자열로 받은 연산기호를 실제 연산기호로 바꾸기 위한 함수
 precedence get_token(char *exp, char *symbol, int *pn)
 {
     *symbol = exp[(*pn)++];
@@ -81,7 +81,7 @@ precedence get_token(char *exp, char *symbol, int *pn)
         default : return operand;
     }
 }
-
+//후위식을 계산하는 함수
 int eval(char* exp){
     precedence token;
     
@@ -91,21 +91,22 @@ int eval(char* exp){
 
     int result = 0;
 
-    dstack *s = CreateStack();
+    dstack *s = CreateStack(); //스택 생성
 
-    token = get_token(exp, &symbol, &n);
+    token = get_token(exp, &symbol, &n);//연산자에 해당하는 리턴값
     
-    while (token != eos)
+    while (token != eos) // 값이 있다면 반복
     {
-        if (token == operand)
+        if (token == operand) //숫자인 경우
         {
             push(s, symbol-'0');
         }
+        //연산자를 받음 경우
         else
-        {
+        {//맨 위 두수를 가져옴
             op2 = pop(s);
             op1 = pop(s);
-
+            //연산후 다시 stack에 넣음
             switch (token)
             {
                 case plus: push(s, op1 + op2);
@@ -128,12 +129,12 @@ int eval(char* exp){
 int main(void)
 {
     char exp[] = "(5+4/2)*((9*7)/(8/2+3))-2";
-    printf("infix : %s\n", exp);
-    char exp2[100];
-    printf("postfix : ");
-    in2postEval(exp, exp2);
+    printf("infix : %s\n", exp);//중위식 출력
+    char exp2[100]; //후위식을 저장할 배열 생성
+    printf("postfix : "); 
+    in2postEval(exp, exp2); //후위식을 출력하고 값을 가져옴
     
-    int result = eval(exp2);
+    int result = eval(exp2); //후위식을 계산함
     printf("\npostfix evaluation: %d\n", result);
     return 0;
 }

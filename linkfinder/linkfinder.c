@@ -5,20 +5,20 @@
 //순환 리스트를 만드는 함수
 list *Creatlooplist(list *l){
     int data, loop;
-    printf("How many you want loop?\n");
+    printf("How many you want loop?\n"); //순환 노드의 개수
     scanf("%d", &loop);
     for(int i= 0; i<loop; i++){
         printf("input data : ");
         scanf("%d", &data);
         InsertListHead(l, data);
     }
-    l->pos = l->head;
+    l->pos = l->head; //pos에 head를 넣어 초기화
     while (l && (l->pos->next != NULL)) {
         l->pos = l->pos->next;
     }
     l->pos->next = l->head; //마지막 노드에 순환 시작지점 노드 주소를 넣음
 
-    printf("how many you want to make noon loop node?\n");
+    printf("how many you want to make not loop node?\n"); //순환하지 않는 노드의 개수
     scanf("%d", &loop);
     for(int i= 0; i<loop; i++){
         printf("input data : ");
@@ -30,7 +30,7 @@ list *Creatlooplist(list *l){
 
 //순환 지점을 찾는 함수
 void FindLoop(list *l){
-    //주소로 받아서 문제
+    //slow와 fast를 주소로 받으면 같이 움직이므로 변수로 받음
     l->pos = l->head;
     list slow = *l;
     list fast = *l;
@@ -52,11 +52,10 @@ void FindLoop(list *l){
         printf("slow %d\n", slow.pos->data);
     }
 
-    printf("start loop data is %d", fast.pos->data);
+    printf("start loop data is %d", fast.pos->data); //순환이 시작되는 지점
 }
 
 int main(void){
-    int loop;
     list *l = InitList();
     l = Creatlooplist(l);
     FindLoop(l);
