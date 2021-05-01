@@ -58,9 +58,9 @@ int Top(struct _Stack *s) { //stack의 s를 대문자로 변경
 
 void DeleteStack(struct _Stack *s) { //stack의 s를 대문자로 변경
 	if(s) {
-		if(s->array)
-			free(s->array);
-		free(s);
+		if(s->array) 
+			free(s->array); //할당받은 배열 반환
+		free(s); //할당받은 스택 반환
 	}
 }
 
